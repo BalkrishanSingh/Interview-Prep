@@ -129,11 +129,11 @@ class SolutionMinPathSum:
   Let $\text{dp}[r][c]$ be the **minimum health required upon entering cell $(r, c)$** to survive to the end:
   - From $(r, c)$, the knight can step either Right $(r, c+1)$ or Down $(r+1, c)$.
   - The knight greedily chooses the branch needing less entry health:
-    $$\text{min\_future\_health} = \min(\text{dp}[r+1][c], \text{dp}[r][c+1])$$
-  - To enter $(r, c)$ and leave with `min_future_health` after absorbing `dungeon[r][c]`:
-    $$\text{required} = \text{min\_future\_health} - \text{dungeon}[r][c]$$
+    $$H_{\text{next}} = \min(\text{dp}[r+1][c], \text{dp}[r][c+1])$$
+  - To enter $(r, c)$ and leave with $H_{\text{next}}$ after absorbing `dungeon[r][c]`:
+    $$\text{required} = H_{\text{next}} - \text{dungeon}[r][c]$$
   - Because health must never drop to 0 or below, the required health can never be less than 1:
-    $$\text{dp}[r][c] = \max(1, \text{min\_future\_health} - \text{dungeon}[r][c])$$
+    $$\text{dp}[r][c] = \max(1, H_{\text{next}} - \text{dungeon}[r][c])$$
 
 ---
 

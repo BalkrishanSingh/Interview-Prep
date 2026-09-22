@@ -7,7 +7,7 @@
 In **Interval Dynamic Programming**, the state parameters represent the boundaries of a contiguous range or subarray:
 - Subproblem: $\text{dp}[i][j]$ represents the optimal solution for the interval from index $i$ to index $j$.
 - Invariant: A solution for interval $[i, j]$ is formed by evaluating all possible split points $k \in [i \dots j-1]$ that divide the range into two independent sub-intervals $[i, k]$ and $[k+1, j]$:
-  $$\text{dp}[i][j] = \min_{i \le k < j} / \max_{i \le k < j} \left( \text{dp}[i][k] + \text{dp}[k+1][j] + \text{transition\_cost}(i, k, j) \right)$$
+  $$\text{dp}[i][j] = \min_{i \le k < j} \left( \text{dp}[i][k] + \text{dp}[k+1][j] + \text{cost}(i, k, j) \right)$$
 
 ### Evaluation Order: Increasing Interval Length
 Because $\text{dp}[i][j]$ depends on strictly shorter sub-intervals, loops must iterate by increasing interval length $L \in [2 \dots N]$:

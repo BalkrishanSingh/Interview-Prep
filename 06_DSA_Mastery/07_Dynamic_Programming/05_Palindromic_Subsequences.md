@@ -68,7 +68,7 @@ Let $\text{dp}[i][j]$ be the length of the longest palindromic subsequence in su
 1. **Endpoints match** (`s[i] == s[j]`):
    - Both characters are included at opposite ends of the palindrome:
      $$\text{dp}[i][j] = 2 + \text{dp}[i+1][j-1]$$
-   - Special boundary when $i == j$: $\text{dp}[i][i] = 1$.
+   - Special boundary when $i = j$: $\text{dp}[i][i] = 1$.
 2. **Endpoints do not match** (`s[i] != s[j]`):
    - We must discard either $s[i]$ or $s[j]$:
      $$\text{dp}[i][j] = \max(\text{dp}[i+1][j], \text{dp}[i][j-1])$$
@@ -188,15 +188,15 @@ class SolutionLCS:
 Finding the minimum cuts directly with recursion has overlapping subproblems across both substring palindromicity and prefix partitioning. We decouple this into two stages:
 
 1. **Stage 1: Precompute Palindrome Lookup Table ($O(N^2)$)**:
-   Let `is_pal[i][j]` denote whether `s[i...j]` is a palindrome.
-   $$\text{is\_pal}[i][j] = (s[i] == s[j]) \land (j - i \le 2 \lor \text{is\_pal}[i+1][j-1])$$
+   Let `is_pal[i][j]` denote whether `s[i...j]` is a palindrome:
+   $$\text{pal}[i][j] = (s[i] = s[j]) \land (j - i \le 2 \lor \text{pal}[i+1][j-1])$$
 
 2. **Stage 2: 1D Prefix Cut Optimization ($O(N^2)$)**:
    Let `cuts[i]` be the minimum cuts needed for prefix `s[0...i]`:
    - If `is_pal[0][i]` is True: No cuts required $\implies \text{cuts}[i] = 0$.
    - Otherwise, test all split points $j \in [1 \dots i]$:
      If `is_pal[j][i]` is True, the suffix `s[j...i]` is a palindrome, requiring 1 cut after prefix `s[0...j-1]`:
-     $$\text{cuts}[i] = \min_{1 \le j \le i, \text{is\_pal}[j][i]} (\text{cuts}[j - 1] + 1)$$
+     $$\text{cuts}[i] = \min_{1 \le j \le i, \text{pal}[j][i]} (\text{cuts}[j - 1] + 1)$$
 
 ---
 

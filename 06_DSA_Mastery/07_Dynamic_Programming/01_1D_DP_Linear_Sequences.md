@@ -268,10 +268,10 @@ class SolutionLIS:
 Let $\text{dp}[i]$ represent the number of ways to decode prefix $s[0 \dots i-1]$:
 1. **Single Digit Check**:
    If $s[i-1] \neq '0'$, we can decode $s[i-1]$ as a single character:
-   $$\text{dp}[i] += \text{dp}[i-1]$$
+   $$\text{dp}[i] = \text{dp}[i] + \text{dp}[i-1]$$
 2. **Two Digit Check**:
    If $s[i-2 \dots i-1] \in [10, 26]$, we can decode the 2-digit pair as a single character:
-   $$\text{dp}[i] += \text{dp}[i-2]$$
+   $$\text{dp}[i] = \text{dp}[i] + \text{dp}[i-2]$$
 
 Because $\text{dp}[i]$ depends only on $\text{dp}[i-1]$ and $\text{dp}[i-2]$, we can compress the table to $O(1)$ space using two variables.
 

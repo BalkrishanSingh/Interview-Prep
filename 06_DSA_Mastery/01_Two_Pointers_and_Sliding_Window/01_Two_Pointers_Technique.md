@@ -15,8 +15,8 @@ Array: [ 2,   7,   11,   15,   18,   22,   25,   30,   35,   40 ]
 
 ### The Invariant:
 When an array is sorted, the sum $\text{arr}[\text{left}] + \text{arr}[\text{right}]$ is monotonic:
-- If $\text{sum} < \text{target}$, moving `left` forward ($\text{left} + 1$) can only *increase* the sum.
-- If $\text{sum} > \text{target}$, moving `right` backward ($\text{right} - 1$) can only *decrease* the sum.
+- If `sum < target`, moving `left` forward (`left + 1`) can only *increase* the sum.
+- If `sum > target`, moving `right` backward (`right - 1`) can only *decrease* the sum.
 - **Why this eliminates $O(N^2)$ brute force**: At each step, a single comparison eliminates an entire row or column of the search matrix, ensuring $O(N)$ linear time.
 
 ---
@@ -173,8 +173,8 @@ class Solution:
 1. **Sort `nums` in non-decreasing order**: Enables directional two-pointer adjustments and duplicate skipping.
 2. **Fix outer pointer $i$**: For each unique value `nums[i]`, find two numbers in `nums[i+1 ... N-1]` that sum to `-nums[i]`.
 3. **Duplicate Pruning Invariants**:
-   - **Outer loop skip**: If $i > 0$ and $\text{nums}[i] == \text{nums}[i - 1]$, skip to avoid repeating the same first element.
-   - **Inner two-pointer skips**: When a valid triplet is found ($\text{nums}[i] + \text{nums}[l] + \text{nums}[r] == 0$), increment $l$ and decrement $r$, then skip all identical adjacent values:
+   - **Outer loop skip**: If $i > 0$ and `nums[i] == nums[i - 1]`, skip to avoid repeating the same first element.
+   - **Inner two-pointer skips**: When a valid triplet is found (`nums[i] + nums[l] + nums[r] == 0`), increment $l$ and decrement $r$, then skip all identical adjacent values:
      `while l < r and nums[l] == nums[l - 1]: l += 1`
      `while l < r and nums[r] == nums[r + 1]: r -= 1`
 
@@ -249,13 +249,15 @@ class Solution3Sum:
 ### 5.2 The Two-Pointer Bottleneck Invariant ($O(N)$ Time, $O(1)$ Space)
 
 The volume of water trapped above bar $i$ is governed by the shorter of its maximum walls to the left and right:
-$$\text{water}[i] = \max\left(0, \min(\text{left\_max}, \text{right\_max}) - \text{height}[i]\right)$$
+$$\text{water}[i] = \max(0, \min(L_{\max}, R_{\max}) - \text{height}[i])$$
+
+Where $L_{\max} = \max_{0 \le k \le i}(\text{height}[k])$ and $R_{\max} = \max_{i \le k < N}(\text{height}[k])$.
 
 Instead of precomputing prefix and suffix max arrays in $O(N)$ space, we maintain two pointers $l = 0$ and $r = N - 1$ with running values `left_max` and `right_max`:
 - **The Deciding Invariant**:
-  If $\text{left\_max} < \text{right\_max}$: The bottleneck wall for bar $l$ is **strictly determined by `left_max`**, regardless of whether future bars between $l$ and $r$ are even higher than `right_max`.
-  Therefore, we can unconditionally add $\text{left\_max} - \text{height}[l]$ to total water and advance $l += 1$.
-- Otherwise: The bottleneck wall for bar $r$ is strictly bounded by `right_max`. We add $\text{right\_max} - \text{height}[r]$ and advance $r -= 1$.
+  If `left_max < right_max`: The bottleneck wall for bar $l$ is **strictly determined by `left_max`**, regardless of whether future bars between $l$ and $r$ are even higher than `right_max`.
+  Therefore, we can unconditionally add `left_max - height[l]` to total water and advance `l += 1`.
+- Otherwise: The bottleneck wall for bar $r$ is strictly bounded by `right_max`. We add `right_max - height[r]` and advance `r -= 1`.
 
 ---
 

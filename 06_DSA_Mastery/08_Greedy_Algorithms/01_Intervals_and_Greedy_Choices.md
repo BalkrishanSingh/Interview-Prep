@@ -42,8 +42,8 @@ Pattern B: Merge overlapping intervals
 ---
 
 ### 3.2 Constraints & Complexity Analysis
-- $1 \le \text{intervals.length} \le 10^5$
-- $\text{intervals}[i]\text{.length} == 2$
+- $1 \le N \le 10^5$ (where $N = \text{len}(\text{intervals})$)
+- `intervals[i].length == 2`
 - $-5 \times 10^4 \le \text{start}_i < \text{end}_i \le 5 \times 10^4$
 - Target Time: $O(N \log N)$ driven by sorting.
 - Target Space: $O(1)$ auxiliary space (in-place sort).

@@ -30,8 +30,8 @@ Although a single iteration may pop up to $N$ elements, **each element is pushed
 ### 2.2 Monotonic Decreasing Stack Invariant
 - Store **indices** in the stack (storing indices allows computing distance $j - i$ and looking up temperatures `temperatures[idx]`).
 - When encountering temperature $T$:
-  - While stack is non-empty and $T > \text{temperatures}[\text{stack}[-1]]$:
-    - The warmer day for $\text{stack}[-1]$ has arrived!
+  - While stack is non-empty and `temperatures[i] > temperatures[stack[-1]]`:
+    - The warmer day for index `stack[-1]` has arrived!
     - Pop `prev_day = stack.pop()`.
     - Record distance: `answer[prev_day] = i - prev_day`.
   - Push current index $i$ onto stack.
@@ -98,7 +98,7 @@ For any given bar $i$ with height $H = \text{heights}[i]$, what is the widest re
 A **Monotonically Increasing Stack** computes both boundaries $L$ and $R$ for all bars in a single pass:
 - When incoming bar $R$ has height `< heights[stack[-1]]`:
   - Bar $i = \text{stack.pop()}$ has found its **right boundary** ($R$).
-  - Its **left boundary** is the new top of the stack: $L = \text{stack}[-1]$!
+  - Its **left boundary** is the new top of the stack: `L = stack[-1]`!
   - We immediately calculate and update max area for bar $i$.
 
 ### Dummy Sentinels Optimization

@@ -43,30 +43,32 @@ s2 = ThreadSafeSingleton()
 assert s1 is s2, "Instances must be memory-identical"
 ```
 
-### 2.2 Pythonic Metaclass Implementation
-The cleanest and most reusable way to implement Singletons across multiple classes in Python:
+### 2.2 Why Singleton is Often Considered an Anti-Pattern
+While Singleton guarantees a single instance, overusing it introduces severe architectural pitfalls:
+1. **Global Mutable State**: Any part of the application can mutate the singleton's state at any time, making bugs difficult to trace.
+2. **Hidden Dependencies**: Components that reach out to a global Singleton disguise their true dependencies, violating explicit interface design.
+3. **Testing & Mocking Bottlenecks**: Unit tests cannot easily isolate or swap out a global singleton instance, leading to state leakage across tests.
+4. **Tight Coupling**: Callers become coupled to a specific concrete class rather than an abstract interface.
+
+### 2.3 The Bill Pugh / Static Inner Holder Idiom
+In class-loader based runtimes (like Java/C#), the cleanest way to achieve thread-safe, lazy-initialized Singletons without locking overhead is the **Initialization-on-Demand Holder Idiom**:
+- The inner helper class is not loaded into memory until the `getInstance()` method is explicitly invoked.
+- The runtime's class loader guarantees thread-safe initialization of static fields without explicit mutex synchronization.
 
 ```python
-class SingletonMeta(type):
-    """Metaclass that creates a Singleton base."""
-    _instances = {}
-    _lock = threading.Lock()
+# Universal Architectural Solution: Dependency Injection
+# Instead of components reaching into a global Singleton,
+# instantiate a single instance at application startup and inject it.
 
-    def __call__(cls, *args, **kwargs):
-        with cls._lock:
-            if cls not in cls._instances:
-                instance = super().__call__(*args, **kwargs)
-                cls._instances[cls] = instance
-        return cls._instances[cls]
-
-class DatabaseConnectionPool(metaclass=SingletonMeta):
-    def __init__(self, connection_str: str = "postgres://main-db:5432"):
+class DatabaseConnectionPool:
+    def __init__(self, connection_str: str):
         self.connection_str = connection_str
-        print("Initializing heavy database connection pool...")
 
-pool1 = DatabaseConnectionPool()
-pool2 = DatabaseConnectionPool()
-assert pool1 is pool2  # Initializer runs only once!
+# Application Entrypoint / Container:
+# Creates exactly one instance and passes it explicitly to services that need it
+db_pool = DatabaseConnectionPool("postgres://main-db:5432")
+user_service = UserService(db_pool)
+order_service = OrderService(db_pool)
 ```
 
 ---

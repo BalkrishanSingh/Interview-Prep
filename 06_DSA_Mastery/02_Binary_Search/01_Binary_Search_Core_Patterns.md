@@ -59,7 +59,7 @@ def binary_search_lower_bound(nums: list[int], target: int) -> int:
 > *"There is an integer array `nums` sorted in ascending order (with distinct values)."*
 - Originally sorted: $nums[0] < nums[1] < \dots < nums[n-1]$. Distinct elements eliminate ambiguity.
 
-> *"Prior to being passed to your function, `nums` is possibly rotated at an unknown pivot index $k$ ($1 \le k < \text{nums.length}$)..."*
+> *"Prior to being passed to your function, `nums` is possibly rotated at an unknown pivot index $k$ ($1 \le k < N$)..."*
 - Array split into two sorted subarrays: $[nums[k], \dots, nums[n-1], nums[0], \dots, nums[k-1]]$.
 - Key Property: For any partition at `mid`, **at least one of the two halves (`[low, mid]` or `[mid, high]`) is guaranteed to be strictly sorted**!
 
@@ -205,7 +205,7 @@ class SolutionFindMin:
 ### 5.1 Problem Statement Breakdown & Line-by-Line Annotations
 > *"A peak element is an element that is strictly greater than its neighbors. Given a 0-indexed integer array `nums`, find a peak element, and return its index."*
 - Array is **not sorted**.
-- $nums[-1] = nums[n] = -\infty$ (virtual boundaries are $-\infty$).
+- `nums[-1] = nums[n] = -∞` (virtual boundaries are $-\infty$).
 - You must write an algorithm that runs in **$O(\log N)$ time**.
 
 ---

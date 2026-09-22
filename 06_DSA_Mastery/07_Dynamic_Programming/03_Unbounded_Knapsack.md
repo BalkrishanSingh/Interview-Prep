@@ -74,9 +74,9 @@ Consider `amount = 5, coins = [1, 2, 5]`:
 | Coin | Loop $a \in [\text{coin}, 5]$ | Updated `dp` Array `[0, 1, 2, 3, 4, 5]` |
 | :--- | :--- | :--- |
 | Init | — | `[1, 0, 0, 0, 0, 0]` |
-| 1 | $a \in [1, 5]: \text{dp}[a] += \text{dp}[a - 1]$ | `[1, 1, 1, 1, 1, 1]` |
-| 2 | $a = 2: \text{dp}[2] += \text{dp}[0] \implies 2$<br>$a = 3: \text{dp}[3] += \text{dp}[1] \implies 2$<br>$a = 4: \text{dp}[4] += \text{dp}[2] \implies 3$<br>$a = 5: \text{dp}[5] += \text{dp}[3] \implies 3$ | `[1, 1, 2, 2, 3, 3]` |
-| 5 | $a = 5: \text{dp}[5] += \text{dp}[0] \implies 3 + 1 = 4$ | `[1, 1, 2, 2, 3, 4]` |
+| 1 | $a \in [1, 5]$: `dp[a] += dp[a - 1]` | `[1, 1, 1, 1, 1, 1]` |
+| 2 | `a = 2: dp[2] += dp[0]` $\implies 2$<br>`a = 3: dp[3] += dp[1]` $\implies 2$<br>`a = 4: dp[4] += dp[2]` $\implies 3$<br>`a = 5: dp[5] += dp[3]` $\implies 3$ | `[1, 1, 2, 2, 3, 3]` |
+| 5 | `a = 5: dp[5] += dp[0]` $\implies 3 + 1 = 4$ | `[1, 1, 2, 2, 3, 4]` |
 
 Result: `dp[5] = 4`. The 4 combinations are:
 1. `5`

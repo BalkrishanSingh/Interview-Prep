@@ -160,7 +160,7 @@ class Solution:
 
 ### 4.1 Problem Statement Breakdown & Line-by-Line Annotations
 > *"Given two strings `s` and `t` of lengths `m` and `n` respectively, return the minimum window substring of `s` such that every character in `t` (including duplicates) is included in the window."*
-- Optimization: Minimize $(right - left + 1)$ subject to the frequency requirement $\forall c \in t: \text{window}[c] \ge \text{target\_counts}[c]$.
+- Optimization: Minimize $(right - left + 1)$ subject to the frequency requirement $\forall c \in t: \text{window}[c] \ge \text{target}[c]$.
 - If no such substring exists, return empty string `""`.
 
 ---

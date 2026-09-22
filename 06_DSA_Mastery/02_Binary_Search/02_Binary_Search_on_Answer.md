@@ -165,20 +165,20 @@ class Solution:
 
 To achieve logarithmic time, we perform binary search directly on the **partition cut position** of the smaller array:
 
-1. **Ensure `nums1` is the shorter array**: If $\text{len}(nums1) > \text{len}(nums2)$, swap them.
+1. **Ensure `nums1` is the shorter array**: If `len(nums1) > len(nums2)`, swap them.
 2. **Partition Size Balance**:
    We want the left combined partition to have exactly half the total elements:
    $$i + j = \frac{m + n + 1}{2}$$
    - Cut $i \in [0 \dots m]$ in `nums1` automatically determines cut $j = \frac{m + n + 1}{2} - i$ in `nums2`.
 3. **Four Boundary Values**:
-   - $\text{left1} = \text{nums1}[i - 1]$ (or $-\infty$ if $i == 0$)
-   - $\text{right1} = \text{nums1}[i]$ (or $+\infty$ if $i == m$)
-   - $\text{left2} = \text{nums2}[j - 1]$ (or $-\infty$ if $j == 0$)
-   - $\text{right2} = \text{nums2}[j]$ (or $+\infty$ if $j == n$)
+   - $\text{left1} = \text{nums1}[i - 1]$ (or $-\infty$ if $i = 0$)
+   - $\text{right1} = \text{nums1}[i]$ (or $+\infty$ if $i = m$)
+   - $\text{left2} = \text{nums2}[j - 1]$ (or $-\infty$ if $j = 0$)
+   - $\text{right2} = \text{nums2}[j]$ (or $+\infty$ if $j = n$)
 4. **Valid Partition Condition**:
    $$\text{left1} \le \text{right2} \quad \text{and} \quad \text{left2} \le \text{right1}$$
-   - If $\text{left1} > \text{right2}$: Cut $i$ is too far right $\implies \text{high} = i - 1$.
-   - If $\text{left2} > \text{right1}$: Cut $i$ is too far left $\implies \text{low} = i + 1$.
+   - If $\text{left1} > \text{right2}$: Cut $i$ is too far right $\implies$ decrease cut: `high = i - 1`.
+   - If $\text{left2} > \text{right1}$: Cut $i$ is too far left $\implies$ increase cut: `low = i + 1`.
 
 ---
 
@@ -230,7 +230,7 @@ class SolutionMedianTwoSortedArrays:
 
 > *"To find the median of two sorted arrays in $O(\log(\min(m, n)))$ time, I binary search on the partition cut of the shorter array.
 > 
-> If the combined left half contains `(m + n + 1) // 2` elements, picking cut $i$ in `nums1` uniquely fixes cut $j = \text{total\_left} - i$ in `nums2`.
+> If the combined left half contains `(m + n + 1) // 2` elements, picking cut `i` in `nums1` uniquely fixes cut `j = total_left - i` in `nums2`.
 > 
 > The partition is valid when every element in the combined left half is less than or equal to every element in the combined right half. Because both arrays are already sorted internally, this simplifies to two cross-comparisons: `left1 <= right2` and `left2 <= right1`.
 > 
