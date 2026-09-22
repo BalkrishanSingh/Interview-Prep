@@ -14,7 +14,7 @@
 (A) Master OSI vs TCP/IP models and data encapsulation/decapsulation +Networking @theory file:04_Computer_Networking/01_OSI_vs_TCPIP_and_Layer_Mechanisms.md est:20m
 (A) Understand TCP 3-way handshake vs UDP and connection termination +Networking @theory file:04_Computer_Networking/02_Transport_Layer_TCP_vs_UDP_Deep_Dive.md est:25m
 (A) Walk through HTTPS TLS 1.3 handshake and DNS resolution hierarchy +Networking @theory file:04_Computer_Networking/03_Application_Layer_HTTP_HTTPS_DNS.md est:25m
-(A) Articulate end-to-end "What happens when you type google.com?" +Networking @interview file:04_Computer_Networking/06_Classic_Interview_Scenario_Google_Search.md est:20m
+(A) Articulate end-to-end web request lifecycle and rendering pipeline +Networking @architecture file:04_Computer_Networking/06_End_to_End_Web_Request_Lifecycle.md est:20m
 (A) Review Supervised vs Unsupervised ML, Bias-Variance, and Metrics +GenAI @theory file:05_Generative_AI_and_ML/01_Machine_Learning_Core_Concepts.md est:25m
 (A) Master Transformer Architecture and Scaled Dot-Product Self-Attention +GenAI @theory file:05_Generative_AI_and_ML/02_Deep_Learning_and_Transformer_Architecture.md est:30m
 (A) Understand RAG architecture, vector embeddings, and similarity metrics +GenAI @system file:05_Generative_AI_and_ML/04_RAG_Vector_Databases_and_Enterprise_Systems.md est:30m
@@ -42,4 +42,4 @@
 (C) Study Object-Oriented LLD: Design an Elevator System +OOP @design file:02_OOP_and_Design_Patterns/07_Object_Oriented_Low_Level_Design_Case_Studies.md est:30m
 (C) Review Thrashing Working Set Model and Linux CLI utilities (grep, awk, sed, lsof) +OS @system file:03_Operating_Systems/04_IPC_Linux_Internals_and_Shell_Commands.md est:20m
 (C) Review HTTP/3 QUIC protocol over UDP +Networking @theory file:04_Computer_Networking/03_Application_Layer_HTTP_HTTPS_DNS.md est:15m
-(C) Study Infosys Topaz platform capabilities and Enterprise Responsible AI governance +GenAI @system file:05_Generative_AI_and_ML/05_Infosys_Topaz_and_Enterprise_AI_Trends.md est:20m
+(C) Study Enterprise AI architectures, LLM quantization, and AI governance +GenAI @system file:05_Generative_AI_and_ML/05_Enterprise_AI_Architectures_and_Governance.md est:20m
