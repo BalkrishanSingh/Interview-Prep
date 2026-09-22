@@ -72,7 +72,7 @@ def lowestCommonAncestor(root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
   - If any node violates $\text{low} < \text{node.val} < \text{high}$, the tree is invalid.
 - **Direction 2 (Inorder Monotonicity Check)**:
   - Inorder traversal of a valid BST must yield a strictly increasing sequence.
-  - Maintain `prev_val`. If current node $\le \text{prev\_val}$, return `False`.
+  - Maintain `prev_val`. If current node value $\le$ `prev_val`, return `False`.
 
 ---
 

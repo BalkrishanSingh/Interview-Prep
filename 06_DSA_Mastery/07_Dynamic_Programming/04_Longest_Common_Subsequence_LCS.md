@@ -38,11 +38,11 @@ When solving optimization problems comparing two strings $S_1$ (length $M$) and 
 
 ### 2.3 Recurrence Relation & Transition Logic
 Let $\text{dp}[i][j]$ be the LCS length for prefixes $\text{text1}[0 \dots i-1]$ and $\text{text2}[0 \dots j-1]$:
-1. **Characters Match** ($\text{text1}[i-1] == \text{text2}[j-1]$):
+1. **Characters Match** (`text1[i-1] == text2[j-1]`):
    - Include this character in LCS and transition diagonally:
      $$\text{dp}[i][j] = 1 + \text{dp}[i-1][j-1]$$
-2. **Characters Do Not Match** ($\text{text1}[i-1] \neq \text{text2}[j-1]$):
-   - Best result comes from either dropping $\text{text1}[i-1]$ or dropping $\text{text2}[j-1]$:
+2. **Characters Do Not Match** (`text1[i-1] != text2[j-1]`):
+   - Best result comes from either dropping `text1[i-1]` or dropping `text2[j-1]`:
      $$\text{dp}[i][j] = \max(\text{dp}[i-1][j], \text{dp}[i][j-1])$$
 
 **Base Cases**:

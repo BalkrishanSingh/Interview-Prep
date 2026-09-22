@@ -65,11 +65,11 @@ class SolutionPalindromicSubstrings:
 Let $\text{dp}[i][j]$ be the length of the longest palindromic subsequence in substring $s[i \dots j]$ ($0 \le i \le j < N$).
 
 #### Recurrence Relation
-1. **Endpoints match** ($s[i] == s[j]$):
+1. **Endpoints match** (`s[i] == s[j]`):
    - Both characters are included at opposite ends of the palindrome:
      $$\text{dp}[i][j] = 2 + \text{dp}[i+1][j-1]$$
    - Special boundary when $i == j$: $\text{dp}[i][i] = 1$.
-2. **Endpoints do not match** ($s[i] \neq s[j]$):
+2. **Endpoints do not match** (`s[i] != s[j]`):
    - We must discard either $s[i]$ or $s[j]$:
      $$\text{dp}[i][j] = \max(\text{dp}[i+1][j], \text{dp}[i][j-1])$$
 

@@ -53,25 +53,25 @@ $$T(N) = T(N/2) + O(N) = O(N + N/2 + N/4 + \dots) = O(2N) = \mathbf{O(N) \text{ 
 - $1 \le k \le \text{nums.length} \le 10^5$
 - $-10^4 \le \text{nums}[i] \le 10^4$
 - For $N = 100,000$:
-  - Full Sort: $10^5 \log_2(10^5) \approx 1.7 \times 10^6$ operations ($O(N \log N)$).
-  - Min-Heap of size $k$: $N \log k$ operations ($O(N \log K)$).
-  - QuickSelect: Expected $\approx 2 \times 10^5$ operations ($O(N)$).
+  - Full Sort: $10^5 \log_2(10^5) \approx 1.7 \times 10^6$ operations $\implies O(N \log N)$.
+  - Min-Heap of size $k$: $N \log k$ operations $\implies O(N \log K)$.
+  - QuickSelect: Expected $\approx 2 \times 10^5$ operations $\implies O(N)$.
 
 ---
 
 ### 3.3 Direction Exploration & Invariant Proof
 - **Target Index Conversion**:
   The $k$-th largest element in an array of length $N$ resides at index:
-  $$\text{target\_idx} = N - k \quad \text{(in 0-indexed ascending order)}$$
+  $$\text{target} = N - k \quad \text{(in 0-indexed ascending order)}$$
 - **Lomuto / Hoare Partition Invariant**:
   After partitioning around a pivot value $P$:
-  - All elements at indices $< \text{pivot\_idx}$ are $\le P$.
-  - Element at $\text{pivot\_idx}$ is in its **final, permanent sorted position**.
-  - All elements at indices $> \text{pivot\_idx}$ are $\ge P$.
+  - All elements at indices `< pivot_idx` are $\le P$.
+  - Element at `pivot_idx` is in its **final, permanent sorted position**.
+  - All elements at indices `> pivot_idx` are $\ge P$.
 - **Decision Branch**:
-  - If $\text{pivot\_idx} == \text{target\_idx} \implies$ **Found!**
-  - If $\text{pivot\_idx} < \text{target\_idx} \implies$ Discard left half, search $[\text{pivot\_idx} + 1, \text{high}]$.
-  - If $\text{pivot\_idx} > \text{target\_idx} \implies$ Discard right half, search $[\text{low}, \text{pivot\_idx} - 1]$.
+  - If `pivot_idx == target_idx` $\implies$ **Found!**
+  - If `pivot_idx < target_idx` $\implies$ Discard left half, search `[pivot_idx + 1, high]`.
+  - If `pivot_idx > target_idx` $\implies$ Discard right half, search `[low, pivot_idx - 1]`.
 
 ---
 

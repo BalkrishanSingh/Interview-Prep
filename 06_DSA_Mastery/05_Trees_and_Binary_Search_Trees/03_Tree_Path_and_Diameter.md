@@ -53,14 +53,14 @@ Tree path problems frequently require computing an optimal turnaround path while
 ### 2.3 Direction Exploration & Invariant Proof
 - **The Negative Gain Pruning Invariant**:
   If a child subtree's maximum contribution is negative, adding it to the path will strictly reduce the total sum. Therefore, we clamp the child gain to zero:
-  $$\text{effective\_gain} = \max(0, \text{dfs}(\text{child}))$$
+  $$\text{gain}_{\text{child}} = \max(0, \text{dfs}(\text{child}))$$
 - **Local Turnaround Calculation**:
   At current node `curr`, the maximum path that peaks at `curr` (using both left and right branches) is:
-  $$\text{local\_max} = \text{curr.val} + \text{left\_gain} + \text{right\_gain}$$
-  We update our global maximum: $\text{global\_max} = \max(\text{global\_max}, \text{local\_max})$.
+  $$\text{max}_{\text{local}} = \text{node.val} + \text{gain}_{\text{left}} + \text{gain}_{\text{right}}$$
+  We update our global maximum: $\text{max}_{\text{global}} = \max(\text{max}_{\text{global}}, \text{max}_{\text{local}})$.
 - **Return Value to Parent**:
   The parent can only extend the path through *one* of `curr`'s subtrees:
-  $$\text{return\_to\_parent} = \text{curr.val} + \max(\text{left\_gain}, \text{right\_gain})$$
+  $$\text{gain}_{\text{parent}} = \text{node.val} + \max(\text{gain}_{\text{left}}, \text{gain}_{\text{right}})$$
 
 ---
 

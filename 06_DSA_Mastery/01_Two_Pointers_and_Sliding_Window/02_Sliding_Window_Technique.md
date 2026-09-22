@@ -90,9 +90,9 @@ def sliding_window_dynamic_template(s: str) -> int:
   - Maintain `left` and `right`. If $s[\text{right}]$ is in set, increment `left` and remove $s[\text{left}]$ until duplicate is gone.
   - Total Time: $O(2N) = O(N)$.
 - **Direction 3 (Optimized Sliding Window with Last Seen Index Hash Map)**:
-  - Store the most recent index where each character appeared: $\text{last\_seen}[\text{char}] = \text{index}$.
-  - When $s[\text{right}]$ repeats at index `prev_idx`, we can jump `left` directly to $\max(\text{left}, \text{prev\_idx} + 1)$ in $O(1)$ without incrementally popping elements!
-  - Total Time: Exactly $N$ iterations ($O(N)$). Space: $O(\min(N, \Sigma))$.
+  - Store the most recent index where each character appeared: `last_seen[char] = index`.
+  - When `s[right]` repeats at index `prev_idx`, we can jump `left` directly to `max(left, prev_idx + 1)` in $O(1)$ without incrementally popping elements!
+  - Total Time: $O(N)$ (exactly $N$ iterations). Space: $O(\min(N, \Sigma))$.
 
 ---
 

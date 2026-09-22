@@ -84,7 +84,7 @@ Combines semantic understanding with exact keyword search:
 1. **Dense Retrieval**: Embedding-based vector search (captures semantic intent and synonyms).
 2. **Sparse Retrieval (BM25 / TF-IDF)**: Lexical keyword search (matches specific product IDs, part numbers, and acronyms that embeddings overlook).
 3. **Reciprocal Rank Fusion (RRF)**: Merges both ranked result lists into a single consolidated score:
-   $$\text{RRF\_Score}(d) = \sum_{m \in \{\text{Dense}, \text{Sparse}\}} \frac{1}{k + \text{rank}_m(d)}$$
+   $$\text{Score}_{\text{RRF}}(d) = \sum_{m \in \{\text{Dense}, \text{Sparse}\}} \frac{1}{k + \text{rank}_m(d)}$$
 
 ### 4.2 Re-Ranking with Cross-Encoders
 Bi-encoder embedding models compute query and document representations separately for fast vector search. However, a **Cross-Encoder Re-Ranker** processes the query and candidate chunk jointly through full cross-attention layers, outputting an accurate relevance score to select the top 3-5 most pertinent chunks.

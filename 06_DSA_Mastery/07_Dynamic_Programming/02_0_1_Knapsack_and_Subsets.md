@@ -145,15 +145,15 @@ class Solution:
 Given `nums` and `target`, assign `+` or `-` to each element so the total equals `target`.
 Let $P$ be the subset of numbers with positive signs, and $N$ be the subset with negative signs:
 $$\sum P - \sum N = \text{target}$$
-$$\sum P + \sum N = \text{total\_sum}$$
+$$\sum P + \sum N = S_{\text{total}}$$
 Adding the two equations:
-$$2 \sum P = \text{target} + \text{total\_sum} \implies \sum P = \frac{\text{target} + \text{total\_sum}}{2}$$
+$$2 \sum P = \text{target} + S_{\text{total}} \implies \sum P = \frac{\text{target} + S_{\text{total}}}{2}$$
 
 **Validity Check**:
-1. $(\text{target} + \text{total\_sum})$ must be even and non-negative.
-2. If $|\text{target}| > \text{total\_sum}$, return $0$.
+1. $(\text{target} + S_{\text{total}})$ must be even and non-negative.
+2. If $|\text{target}| > S_{\text{total}}$, return $0$.
 
-The problem now identically matches finding the number of subsets with sum equal to $\frac{\text{target} + \text{total\_sum}}{2}$.
+The problem now identically matches finding the number of subsets with sum equal to $\frac{\text{target} + S_{\text{total}}}{2}$.
 
 ```python
 class SolutionTargetSum:

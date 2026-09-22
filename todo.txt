@@ -1,12 +1,12 @@
-(A) Master SQL logical execution order and join mechanics +DBMS @theory file:01_DBMS/01_SQL_Execution_Order_and_Joins.md est:20m
-(A) Understand DENSE_RANK vs RANK vs ROW_NUMBER and running totals +DBMS @query file:01_DBMS/02_Window_Functions_and_Ranking.md est:20m
-(A) Solve second and nth highest salary and duplicate handling queries +DBMS @query file:01_DBMS/03_Must_Know_Interview_Queries.md est:25m
+x 2026-09-22 2026-09-22 Master SQL logical execution order and join mechanics +DBMS @theory file:01_DBMS/01_SQL_Execution_Order_and_Joins.md est:20m
+x 2026-09-22 2026-09-22 Understand DENSE_RANK vs RANK vs ROW_NUMBER and running totals +DBMS @query file:01_DBMS/02_Window_Functions_and_Ranking.md est:20m
+(B) Solve second and nth highest salary and duplicate handling queries +DBMS @query file:01_DBMS/03_Must_Know_Interview_Queries.md est:25m
 (A) Learn Clustered vs Non-Clustered Indexes and B+ Tree mechanics +DBMS @theory file:01_DBMS/04_Indexing_and_Query_Optimization.md est:20m
 (A) Master ACID properties and the 4 ANSI transaction isolation levels +DBMS @theory file:01_DBMS/05_ACID_Transactions_and_Concurrency.md est:25m
 (A) Understand Database Normalization 1NF through 3NF and anomalies +DBMS @theory file:01_DBMS/06_Normalization_and_Schema_Design.md est:25m
-(A) Review the 4 OOP Pillars and Composition over Inheritance in Python +OOP @theory file:02_OOP_and_Design_Patterns/01_Core_OOP_Pillars_and_Mental_Models.md est:25m
-(A) Master SOLID principles with real-world code violations and refactoring +OOP @code file:02_OOP_and_Design_Patterns/02_SOLID_Principles_In_Depth.md est:35m
-(A) Implement thread-safe Singleton and Factory Method patterns +OOP @code file:02_OOP_and_Design_Patterns/03_Creational_Design_Patterns.md est:25m
+x 2026-09-22 2026-09-22 Review the 4 OOP Pillars and Composition over Inheritance in Python +OOP @theory file:02_OOP_and_Design_Patterns/01_Core_OOP_Pillars_and_Mental_Models.md est:25m
+x 2026-09-22 2026-09-22 Master SOLID principles with real-world code violations and refactoring +OOP @code file:02_OOP_and_Design_Patterns/02_SOLID_Principles_In_Depth.md est:35m
+x 2026-09-22 2026-09-22 Implement thread-safe Singleton and Factory Method patterns +OOP @code file:02_OOP_and_Design_Patterns/03_Creational_Design_Patterns.md est:25m
 (A) Implement Observer and Strategy behavioral patterns +OOP @code file:02_OOP_and_Design_Patterns/05_Behavioral_Design_Patterns.md est:25m
 (A) Understand Process vs Thread, PCB, and CPU Scheduling algorithms +OS @theory file:03_Operating_Systems/01_Processes_Threads_and_CPU_Scheduling.md est:25m
 (A) Master Mutex vs Semaphore and the 4 Coffman Deadlock conditions +OS @theory file:03_Operating_Systems/02_Concurrency_Deadlocks_and_Synchronization.md est:25m
@@ -18,9 +18,9 @@
 (A) Review Supervised vs Unsupervised ML, Bias-Variance, and Metrics +GenAI @theory file:05_Generative_AI_and_ML/01_Machine_Learning_Core_Concepts.md est:25m
 (A) Master Transformer Architecture and Scaled Dot-Product Self-Attention +GenAI @theory file:05_Generative_AI_and_ML/02_Deep_Learning_and_Transformer_Architecture.md est:30m
 (A) Understand RAG architecture, vector embeddings, and similarity metrics +GenAI @system file:05_Generative_AI_and_ML/04_RAG_Vector_Databases_and_Enterprise_Systems.md est:30m
-(A) Master DP and Non-DP Thinking Blueprints for problem decomposition +DSA @framework file:06_DSA_Mastery/00_Frameworks/ est:30m
-(A) Master Two Pointers: Container With Most Water (LC 11) +DSA @algorithm file:06_DSA_Mastery/01_Two_Pointers_and_Sliding_Window/01_Two_Pointers_Technique.md est:20m
-(A) Master Sliding Window: Longest Substring Without Repeating Characters (LC 3) +DSA @algorithm file:06_DSA_Mastery/01_Two_Pointers_and_Sliding_Window/02_Sliding_Window_Technique.md est:25m
+x 2026-09-22 2026-09-22 Master DP and Non-DP Thinking Blueprints for problem decomposition +DSA @framework file:06_DSA_Mastery/00_Frameworks/ est:30m
+x 2026-09-22 2026-09-22 Master Two Pointers: Container With Most Water (LC 11) +DSA @algorithm file:06_DSA_Mastery/01_Two_Pointers_and_Sliding_Window/01_Two_Pointers_Technique.md est:20m
+x 2026-09-22 2026-09-22 Master Sliding Window: Longest Substring Without Repeating Characters (LC 3) +DSA @algorithm file:06_DSA_Mastery/01_Two_Pointers_and_Sliding_Window/02_Sliding_Window_Technique.md est:25m
 (A) Master Binary Search: Search in Rotated Sorted Array (LC 33) +DSA @algorithm file:06_DSA_Mastery/02_Binary_Search/01_Binary_Search_Core_Patterns.md est:25m
 (A) Master Binary Search on Answer: Koko Eating Bananas (LC 875) +DSA @algorithm file:06_DSA_Mastery/02_Binary_Search/02_Binary_Search_on_Answer.md est:25m
 (A) Master QuickSelect O(N) Kth Largest Element (LC 215) +DSA @algorithm file:06_DSA_Mastery/03_Sorting_Algorithms/01_Sorting_and_Order_Statistics.md est:25m
@@ -34,7 +34,6 @@
 (A) Master 0/1 Knapsack & Subset Sum: Partition Equal Subset Sum (LC 416) +DSA @algorithm file:06_DSA_Mastery/07_Dynamic_Programming/02_0_1_Knapsack_and_Subsets.md est:30m
 (A) Master Longest Common Subsequence & Edit Distance (LC 1143, 72) +DSA @algorithm file:06_DSA_Mastery/07_Dynamic_Programming/04_Longest_Common_Subsequence_LCS.md est:30m
 (A) Master Greedy Intervals & Choices: Non-overlapping Intervals & Merge Intervals (LC 435, 56) +DSA @algorithm file:06_DSA_Mastery/08_Greedy_Algorithms/01_Intervals_and_Greedy_Choices.md est:25m
-
 (B) Study Two-Phase Locking (2PL) and Multi-Version Concurrency Control (MVCC) +DBMS @theory file:01_DBMS/05_ACID_Transactions_and_Concurrency.md est:20m
 (B) Learn SARGable query design, composite indexes, and reading EXPLAIN plans +DBMS @query file:01_DBMS/04_Indexing_and_Query_Optimization.md est:20m
 (B) Study Boyce-Codd Normal Form (BCNF) and OLTP vs OLAP Denormalization +DBMS @theory file:01_DBMS/06_Normalization_and_Schema_Design.md est:20m
@@ -57,7 +56,6 @@
 (B) Master Palindromic Substrings & Subsequences (LC 647, 516) +DSA @algorithm file:06_DSA_Mastery/07_Dynamic_Programming/05_Palindromic_Subsequences.md est:25m
 (B) Master Tree Dynamic Programming: House Robber III (LC 337) +DSA @algorithm file:06_DSA_Mastery/07_Dynamic_Programming/06_DP_on_Trees_and_DAGs.md est:25m
 (B) Master Greedy Choice: Gas Station circuit traversal (LC 134) +DSA @algorithm file:06_DSA_Mastery/08_Greedy_Algorithms/01_Intervals_and_Greedy_Choices.md est:20m
-
 (C) Solve Relational Division queries and Gaps & Islands streaks +DBMS @query file:01_DBMS/03_Must_Know_Interview_Queries.md est:20m
 (C) Implement Prototype and Composite design patterns +OOP @code file:02_OOP_and_Design_Patterns/04_Structural_Design_Patterns.md est:20m
 (C) Implement Template Method pattern +OOP @code file:02_OOP_and_Design_Patterns/05_Behavioral_Design_Patterns.md est:15m

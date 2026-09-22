@@ -54,8 +54,8 @@ Pattern B: Merge overlapping intervals
 - Sort intervals by their **end time** in non-decreasing order: `intervals.sort(key=lambda x: x[1])`.
 - Pick the first interval (the one that ends earliest).
 - For each subsequent interval $[s, e]$:
-  - If $s \ge \text{prev\_end}$: Compatible! Accept interval, update $\text{prev\_end} = e$.
-  - If $s < \text{prev\_end}$: Overlap! Must remove one. Because the current interval ends after or at $\text{prev\_end}$, greedily dropping the current interval preserves the earliest finish time. Increment removal count.
+  - If $s \ge \text{end}_{\text{prev}}$: Compatible! Accept interval, update $\text{end}_{\text{prev}} = e$.
+  - If $s < \text{end}_{\text{prev}}$: Overlap! Must remove one. Because the current interval ends after or at $\text{end}_{\text{prev}}$, greedily dropping the current interval preserves the earliest finish time. Increment removal count.
 
 ---
 
@@ -64,7 +64,7 @@ Pattern B: Merge overlapping intervals
 Consider `intervals = [[1, 2], [2, 3], [3, 4], [1, 3]]`:
 - After sorting by end time: `[[1, 2], [2, 3], [1, 3], [3, 4]]`.
 
-| Interval `[s, e]` | `prev_end` | Overlap Condition ($s < \text{prev\_end}$)? | Action | Removals |
+| Interval `[s, e]` | `prev_end` | Overlap Condition ($s < \text{end}_{\text{prev}}$)? | Action | Removals |
 | :--- | :--- | :--- | :--- | :--- |
 | `[1, 2]` | $-\infty$ | $1 < -\infty$ (False) | Keep interval, `prev_end = 2` | 0 |
 | `[2, 3]` | 2 | $2 < 2$ (False) | Keep interval, `prev_end = 3` | 0 |
