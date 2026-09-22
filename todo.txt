@@ -21,19 +21,29 @@ x 2026-09-22 2026-09-22 Implement thread-safe Singleton and Factory Method patte
 x 2026-09-22 2026-09-22 Master DP and Non-DP Thinking Blueprints for problem decomposition +DSA @framework file:06_DSA_Mastery/00_Frameworks/ est:30m
 x 2026-09-22 2026-09-22 Master Two Pointers: Container With Most Water (LC 11) +DSA @algorithm file:06_DSA_Mastery/01_Two_Pointers_and_Sliding_Window/01_Two_Pointers_Technique.md est:20m
 x 2026-09-22 2026-09-22 Master Sliding Window: Longest Substring Without Repeating Characters (LC 3) +DSA @algorithm file:06_DSA_Mastery/01_Two_Pointers_and_Sliding_Window/02_Sliding_Window_Technique.md est:25m
+(A) Master 3Sum (LC 15) and Trapping Rain Water (LC 42) +DSA @algorithm file:06_DSA_Mastery/01_Two_Pointers_and_Sliding_Window/01_Two_Pointers_Technique.md est:30m
+(A) Master Minimum Window Substring (LC 76) +DSA @algorithm file:06_DSA_Mastery/01_Two_Pointers_and_Sliding_Window/02_Sliding_Window_Technique.md est:30m
 (A) Master Binary Search: Search in Rotated Sorted Array (LC 33) +DSA @algorithm file:06_DSA_Mastery/02_Binary_Search/01_Binary_Search_Core_Patterns.md est:25m
+(A) Master Find Peak Element (LC 162) and Find Minimum in Rotated Sorted Array (LC 153) +DSA @algorithm file:06_DSA_Mastery/02_Binary_Search/01_Binary_Search_Core_Patterns.md est:25m
 (A) Master Binary Search on Answer: Koko Eating Bananas (LC 875) +DSA @algorithm file:06_DSA_Mastery/02_Binary_Search/02_Binary_Search_on_Answer.md est:25m
 (A) Master QuickSelect O(N) Kth Largest Element (LC 215) +DSA @algorithm file:06_DSA_Mastery/03_Sorting_Algorithms/01_Sorting_and_Order_Statistics.md est:25m
 (A) Master Backtracking: Subsets I & II (LC 78, 90) +DSA @algorithm file:06_DSA_Mastery/04_Recursion_and_Backtracking/01_Backtracking_Core_Patterns.md est:25m
+(A) Master Combinations and Permutations: Combination Sum I & II (LC 39, 40) and Permutations I & II (LC 46, 47) +DSA @algorithm file:06_DSA_Mastery/04_Recursion_and_Backtracking/01_Backtracking_Core_Patterns.md est:35m
 (A) Master Tree Traversals and Top View +DSA @algorithm file:06_DSA_Mastery/05_Trees_and_Binary_Search_Trees/01_Tree_Traversals_and_Views.md est:20m
 (A) Master Binary Search Tree Properties: Validate BST & LCA (LC 98, 235) +DSA @algorithm file:06_DSA_Mastery/05_Trees_and_Binary_Search_Trees/02_Binary_Search_Tree_Properties.md est:25m
 (A) Master Binary Tree Maximum Path Sum (LC 124) +DSA @algorithm file:06_DSA_Mastery/05_Trees_and_Binary_Search_Trees/03_Tree_Path_and_Diameter.md est:25m
 (A) Master Graph Traversals BFS/DFS: Number of Islands (LC 200) +DSA @algorithm file:06_DSA_Mastery/06_Graph_Algorithms/01_Graph_Traversals_BFS_DFS.md est:25m
 (A) Master Cycle Detection & Topological Sort: Course Schedule (LC 207, 210) +DSA @algorithm file:06_DSA_Mastery/06_Graph_Algorithms/02_Cycle_Detection_and_TopoSort.md est:30m
 (A) Master 1D Dynamic Programming: House Robber & Coin Change (LC 198, 322) +DSA @algorithm file:06_DSA_Mastery/07_Dynamic_Programming/01_1D_DP_Linear_Sequences.md est:30m
+(A) Master Longest Increasing Subsequence O(N log N) Patience Sorting (LC 300) and Decode Ways (LC 91) +DSA @algorithm file:06_DSA_Mastery/07_Dynamic_Programming/01_1D_DP_Linear_Sequences.md est:30m
 (A) Master 0/1 Knapsack & Subset Sum: Partition Equal Subset Sum (LC 416) +DSA @algorithm file:06_DSA_Mastery/07_Dynamic_Programming/02_0_1_Knapsack_and_Subsets.md est:30m
 (A) Master Longest Common Subsequence & Edit Distance (LC 1143, 72) +DSA @algorithm file:06_DSA_Mastery/07_Dynamic_Programming/04_Longest_Common_Subsequence_LCS.md est:30m
+(A) Master 2D Grid DP: Unique Paths I & II (LC 62, 63) and Minimum Path Sum (LC 64) +DSA @algorithm file:06_DSA_Mastery/07_Dynamic_Programming/07_Grid_and_Matrix_DP.md est:30m
+(A) Master Reverse Grid DP: Dungeon Game (LC 174) +DSA @algorithm file:06_DSA_Mastery/07_Dynamic_Programming/07_Grid_and_Matrix_DP.md est:25m
 (A) Master Greedy Intervals & Choices: Non-overlapping Intervals & Merge Intervals (LC 435, 56) +DSA @algorithm file:06_DSA_Mastery/08_Greedy_Algorithms/01_Intervals_and_Greedy_Choices.md est:25m
+(A) Master Monotonic Stack: Daily Temperatures (LC 739) and Largest Rectangle in Histogram (LC 84) +DSA @algorithm file:06_DSA_Mastery/09_Monotonic_Stack_and_Queue/01_Monotonic_Stack_Patterns.md est:35m
+(A) Master Monotonic Queue: Sliding Window Maximum (LC 239) +DSA @algorithm file:06_DSA_Mastery/09_Monotonic_Stack_and_Queue/02_Monotonic_Queue_Patterns.md est:25m
+
 (B) Study Two-Phase Locking (2PL) and Multi-Version Concurrency Control (MVCC) +DBMS @theory file:01_DBMS/05_ACID_Transactions_and_Concurrency.md est:20m
 (B) Learn SARGable query design, composite indexes, and reading EXPLAIN plans +DBMS @query file:01_DBMS/04_Indexing_and_Query_Optimization.md est:20m
 (B) Study Boyce-Codd Normal Form (BCNF) and OLTP vs OLAP Denormalization +DBMS @theory file:01_DBMS/06_Normalization_and_Schema_Design.md est:20m
@@ -52,10 +62,15 @@ x 2026-09-22 2026-09-22 Master Sliding Window: Longest Substring Without Repeati
 (B) Learn CI/CD pipelines (Lint, Test, Build, Deploy) and Agile/Scrum ceremonies +DevOps @theory file:06_Software_Engineering_and_Git/02_CICD_Agile_and_Engineering_Practices.md est:20m
 (B) Master Shortest Path: Dijkstra with Min-Heap Priority Queue (LC 743) +DSA @algorithm file:06_DSA_Mastery/06_Graph_Algorithms/03_Shortest_Path_Dijkstra.md est:25m
 (B) Master Disjoint Set Union (DSU): Redundant Connection (LC 684) +DSA @algorithm file:06_DSA_Mastery/06_Graph_Algorithms/04_Disjoint_Set_Union_DSU.md est:25m
-(B) Master Unbounded Knapsack & Combinations: Coin Change II (LC 518) +DSA @algorithm file:06_DSA_Mastery/07_Dynamic_Programming/03_Unbounded_Knapsack.md est:25m
-(B) Master Palindromic Substrings & Subsequences (LC 647, 516) +DSA @algorithm file:06_DSA_Mastery/07_Dynamic_Programming/05_Palindromic_Subsequences.md est:25m
+(B) Master Unbounded Knapsack & Combinations: Coin Change II (LC 518) and Combination Sum IV (LC 377) +DSA @algorithm file:06_DSA_Mastery/07_Dynamic_Programming/03_Unbounded_Knapsack.md est:25m
+(B) Master Palindromic Substrings & Subsequences (LC 647, 516) and Palindrome Partitioning II (LC 132) +DSA @algorithm file:06_DSA_Mastery/07_Dynamic_Programming/05_Palindromic_Subsequences.md est:30m
+(B) Master Distinct Subsequences (LC 115) +DSA @algorithm file:06_DSA_Mastery/07_Dynamic_Programming/04_Longest_Common_Subsequence_LCS.md est:25m
+(B) Master State Machine DP: Stock with Cooldown (LC 309), Fee (LC 714), and Stock IV (LC 188) +DSA @algorithm file:06_DSA_Mastery/07_Dynamic_Programming/08_State_Machine_and_Stocks_DP.md est:35m
+(B) Master Interval DP and MCM: Burst Balloons (LC 312) +DSA @algorithm file:06_DSA_Mastery/07_Dynamic_Programming/09_Interval_DP_and_MCM.md est:30m
 (B) Master Tree Dynamic Programming: House Robber III (LC 337) +DSA @algorithm file:06_DSA_Mastery/07_Dynamic_Programming/06_DP_on_Trees_and_DAGs.md est:25m
+(B) Master Median of Two Sorted Arrays (LC 4) +DSA @algorithm file:06_DSA_Mastery/02_Binary_Search/02_Binary_Search_on_Answer.md est:30m
 (B) Master Greedy Choice: Gas Station circuit traversal (LC 134) +DSA @algorithm file:06_DSA_Mastery/08_Greedy_Algorithms/01_Intervals_and_Greedy_Choices.md est:20m
+
 (C) Solve Relational Division queries and Gaps & Islands streaks +DBMS @query file:01_DBMS/03_Must_Know_Interview_Queries.md est:20m
 (C) Implement Prototype and Composite design patterns +OOP @code file:02_OOP_and_Design_Patterns/04_Structural_Design_Patterns.md est:20m
 (C) Implement Template Method pattern +OOP @code file:02_OOP_and_Design_Patterns/05_Behavioral_Design_Patterns.md est:15m

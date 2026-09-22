@@ -156,3 +156,149 @@ class Solution:
 > Because the current water height is limited by the shorter of the two lines, moving the taller line inward can never increase the area—the width decreases, but the height ceiling is still held down by the shorter line. The only chance of finding a greater area is to discard the shorter line by advancing its pointer.
 > 
 > This invariant guarantees that we never prematurely discard any potential optimal solution, processing the array in $O(n)$ time and $O(1)$ auxiliary space."*
+
+---
+
+## 4. Benchmark Problem 2: LeetCode 15 — 3Sum
+
+### 4.1 Problem Statement Breakdown & Line-by-Line Annotations
+> *"Given an integer array `nums`, return all the triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, and `j != k`, and `nums[i] + nums[j] + nums[k] == 0`."*
+- Triplet sum to 0.
+- Output cannot contain duplicate triplets.
+
+---
+
+### 4.2 The Sorting & Dual Pointer Invariant ($O(N^2)$ Time, $O(1)$ Extra Space)
+
+1. **Sort `nums` in non-decreasing order**: Enables directional two-pointer adjustments and duplicate skipping.
+2. **Fix outer pointer $i$**: For each unique value `nums[i]`, find two numbers in `nums[i+1 ... N-1]` that sum to `-nums[i]`.
+3. **Duplicate Pruning Invariants**:
+   - **Outer loop skip**: If $i > 0$ and $\text{nums}[i] == \text{nums}[i - 1]$, skip to avoid repeating the same first element.
+   - **Inner two-pointer skips**: When a valid triplet is found ($\text{nums}[i] + \text{nums}[l] + \text{nums}[r] == 0$), increment $l$ and decrement $r$, then skip all identical adjacent values:
+     `while l < r and nums[l] == nums[l - 1]: l += 1`
+     `while l < r and nums[r] == nums[r + 1]: r -= 1`
+
+---
+
+### 4.3 Complete Python Implementation
+
+```python
+class Solution3Sum:
+    def threeSum(self, nums: list[int]) -> list[list[int]]:
+        nums.sort()
+        n = len(nums)
+        triplets = []
+        
+        for i in range(n - 2):
+            # Early exit: if smallest element is positive, sum cannot be 0
+            if nums[i] > 0:
+                break
+                
+            # Skip duplicate values for outer pointer i
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue
+                
+            l, r = i + 1, n - 1
+            target = -nums[i]
+            
+            while l < r:
+                curr_sum = nums[l] + nums[r]
+                if curr_sum == target:
+                    triplets.append([nums[i], nums[l], nums[r]])
+                    l += 1
+                    r -= 1
+                    # Skip duplicate inner pointers
+                    while l < r and nums[l] == nums[l - 1]:
+                        l += 1
+                    while l < r and nums[r] == nums[r + 1]:
+                        r -= 1
+                elif curr_sum < target:
+                    l += 1
+                else:
+                    r -= 1
+                    
+        return triplets
+```
+
+- **Time Complexity**: $O(N^2)$ — Sorting takes $O(N \log N)$; outer loop runs $N$ times with an $O(N)$ two-pointer scan.
+- **Space Complexity**: $O(1)$ auxiliary space (ignoring sorting memory).
+
+---
+
+### 4.4 Live Verbalization Script
+
+> *"For 3Sum, I sort the array first. Sorting transforms the problem into $N$ two-pointer Two-Sum subproblems and allows clean duplicate elimination without sets.
+> 
+> I iterate the first element index $i$ from 0 to $N-3$. If `nums[i] > 0`, we can terminate immediately because all subsequent numbers are non-negative and cannot sum to 0. If $i > 0$ and `nums[i] == nums[i-1]`, I skip to prevent duplicate triplet roots.
+> 
+> For each $i$, I set two pointers: $l = i + 1$ and $r = N - 1$.
+> If `nums[l] + nums[r] == -nums[i]`, we record the triplet and move both pointers inward, skipping all duplicate adjacent values of $l$ and $r$.
+> If the sum is too small, we increment $l$; if too large, we decrement $r$.
+> 
+> This runs in $O(N^2)$ time and $O(1)$ auxiliary space."*
+
+---
+
+## 5. Benchmark Problem 3: LeetCode 42 — Trapping Rain Water
+
+### 5.1 Problem Statement Breakdown & Line-by-Line Annotations
+> *"Given `n` non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining."*
+
+---
+
+### 5.2 The Two-Pointer Bottleneck Invariant ($O(N)$ Time, $O(1)$ Space)
+
+The volume of water trapped above bar $i$ is governed by the shorter of its maximum walls to the left and right:
+$$\text{water}[i] = \max\left(0, \min(\text{left\_max}, \text{right\_max}) - \text{height}[i]\right)$$
+
+Instead of precomputing prefix and suffix max arrays in $O(N)$ space, we maintain two pointers $l = 0$ and $r = N - 1$ with running values `left_max` and `right_max`:
+- **The Deciding Invariant**:
+  If $\text{left\_max} < \text{right\_max}$: The bottleneck wall for bar $l$ is **strictly determined by `left_max`**, regardless of whether future bars between $l$ and $r$ are even higher than `right_max`.
+  Therefore, we can unconditionally add $\text{left\_max} - \text{height}[l]$ to total water and advance $l += 1$.
+- Otherwise: The bottleneck wall for bar $r$ is strictly bounded by `right_max`. We add $\text{right\_max} - \text{height}[r]$ and advance $r -= 1$.
+
+---
+
+### 5.3 Complete Python Implementation ($O(1)$ Space)
+
+```python
+class SolutionTrappingWater:
+    def trap(self, height: list[int]) -> int:
+        if not height:
+            return 0
+            
+        l, r = 0, len(height) - 1
+        left_max = height[l]
+        right_max = height[r]
+        total_water = 0
+        
+        while l < r:
+            if left_max < right_max:
+                l += 1
+                left_max = max(left_max, height[l])
+                total_water += left_max - height[l]
+            else:
+                r -= 1
+                right_max = max(right_max, height[r])
+                total_water += right_max - height[r]
+                
+        return total_water
+```
+
+- **Time Complexity**: $O(N)$ — Single pass where each step increments $l$ or decrements $r$.
+- **Space Complexity**: $O(1)$ — Only scalar pointers and max trackers used.
+
+---
+
+### 5.4 Live Verbalization Script
+
+> *"For Trapping Rain Water, the water retained above any bar is limited by the shorter of its surrounding walls: `min(left_max, right_max) - height[i]`.
+> 
+> Rather than using $O(N)$ auxiliary arrays to store prefix and suffix maximums, I use two pointers at the ends: `l = 0` and `r = n - 1`, tracking running `left_max` and `right_max`.
+> 
+> The core insight is: if `left_max < right_max`, the height of water at `l` is strictly bound by `left_max`. It does not matter what heights exist between `l` and `r` because we already know a wall at least as tall as `right_max` exists to the right. Therefore, we can safely compute trapped water at `l` as `left_max - height[l]` and increment `l`.
+> 
+> Symmetrically, if `right_max <= left_max`, water at `r` is bound by `right_max`, so we compute water at `r` and decrement `r`.
+> 
+> This processes the entire array in a single $O(N)$ pass using $O(1)$ space."*
+

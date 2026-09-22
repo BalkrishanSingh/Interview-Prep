@@ -149,3 +149,96 @@ class Solution:
 > For each candidate speed `mid`, we compute the total hours. If total hours $\le h$, we record `mid` as a valid candidate and search the lower half for a smaller speed. Otherwise, we search the upper half.
 > 
 > This reduces an intractable $O(N \cdot M)$ search down to $O(N \log M)$ time, executing in under 30 iterations for values up to $10^9$."*
+
+---
+
+## 4. Benchmark Problem 2: LeetCode 4 — Median of Two Sorted Arrays
+
+### 4.1 Problem Statement Breakdown & Line-by-Line Annotations
+> *"Given two sorted arrays `nums1` and `nums2` of size `m` and `n` respectively, return the median of the two sorted arrays."*
+- Merging both arrays takes $O(m + n)$ time.
+- The overall run time complexity must be strictly **$O(\log(m + n))$** or **$O(\log(\min(m, n)))$**.
+
+---
+
+### 4.2 The Partition Cut Invariant ($O(\log(\min(m, n)))$ Time)
+
+To achieve logarithmic time, we perform binary search directly on the **partition cut position** of the smaller array:
+
+1. **Ensure `nums1` is the shorter array**: If $\text{len}(nums1) > \text{len}(nums2)$, swap them.
+2. **Partition Size Balance**:
+   We want the left combined partition to have exactly half the total elements:
+   $$i + j = \frac{m + n + 1}{2}$$
+   - Cut $i \in [0 \dots m]$ in `nums1` automatically determines cut $j = \frac{m + n + 1}{2} - i$ in `nums2`.
+3. **Four Boundary Values**:
+   - $\text{left1} = \text{nums1}[i - 1]$ (or $-\infty$ if $i == 0$)
+   - $\text{right1} = \text{nums1}[i]$ (or $+\infty$ if $i == m$)
+   - $\text{left2} = \text{nums2}[j - 1]$ (or $-\infty$ if $j == 0$)
+   - $\text{right2} = \text{nums2}[j]$ (or $+\infty$ if $j == n$)
+4. **Valid Partition Condition**:
+   $$\text{left1} \le \text{right2} \quad \text{and} \quad \text{left2} \le \text{right1}$$
+   - If $\text{left1} > \text{right2}$: Cut $i$ is too far right $\implies \text{high} = i - 1$.
+   - If $\text{left2} > \text{right1}$: Cut $i$ is too far left $\implies \text{low} = i + 1$.
+
+---
+
+### 4.3 Complete Python Implementation
+
+```python
+class SolutionMedianTwoSortedArrays:
+    def findMedianSortedArrays(self, nums1: list[int], nums2: list[int]) -> float:
+        # Guarantee binary search runs on the shorter array: O(log(min(m, n)))
+        if len(nums1) > len(nums2):
+            nums1, nums2 = nums2, nums1
+            
+        m, n = len(nums1), len(nums2)
+        low, high = 0, m
+        total_left = (m + n + 1) // 2
+        
+        while low <= high:
+            i = low + (high - low) // 2  # Partition in nums1
+            j = total_left - i          # Partition in nums2
+            
+            left1 = float('-inf') if i == 0 else nums1[i - 1]
+            right1 = float('inf') if i == m else nums1[i]
+            
+            left2 = float('-inf') if j == 0 else nums2[j - 1]
+            right2 = float('inf') if j == n else nums2[j]
+            
+            # Correct partition found
+            if left1 <= right2 and left2 <= right1:
+                if (m + n) % 2 != 0:
+                    return float(max(left1, left2))
+                else:
+                    return (max(left1, left2) + min(right1, right2)) / 2.0
+            elif left1 > right2:
+                # Too many elements chosen from nums1
+                high = i - 1
+            else:
+                # Too few elements chosen from nums1
+                low = i + 1
+                
+        return 0.0
+```
+
+- **Time Complexity**: $O(\log(\min(m, n)))$ — Binary search interval bounded by the shorter array length.
+- **Space Complexity**: $O(1)$ — Only scalar indices and boundary comparisons.
+
+---
+
+### 4.4 Live Verbalization Script
+
+> *"To find the median of two sorted arrays in $O(\log(\min(m, n)))$ time, I binary search on the partition cut of the shorter array.
+> 
+> If the combined left half contains `(m + n + 1) // 2` elements, picking cut $i$ in `nums1` uniquely fixes cut $j = \text{total\_left} - i$ in `nums2`.
+> 
+> The partition is valid when every element in the combined left half is less than or equal to every element in the combined right half. Because both arrays are already sorted internally, this simplifies to two cross-comparisons: `left1 <= right2` and `left2 <= right1`.
+> 
+> If `left1 > right2`, we took too many elements from `nums1`, so we move our binary search cut to the left (`high = i - 1`). If `left2 > right1`, we took too few from `nums1`, so we move right (`low = i + 1`).
+> 
+> Once valid:
+> If the combined length is odd, the median is `max(left1, left2)`.
+> If even, the median is the average of `max(left1, left2)` and `min(right1, right2)`.
+> 
+> This runs in strictly $O(\log(\min(m, n)))$ time with $O(1)$ auxiliary space."*
+

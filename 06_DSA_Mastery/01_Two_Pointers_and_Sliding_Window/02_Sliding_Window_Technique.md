@@ -153,3 +153,90 @@ class Solution:
 > If the incoming character at `right` has already been seen and its previous index lies within our current window (`last_seen[char] >= left`), our uniqueness invariant is violated. Rather than incrementing `left` by 1 repeatedly, I jump `left` directly past the prior occurrence: `left = last_seen[char] + 1`.
 > 
 > Because each character is inspected once by the `right` pointer and `left` only moves forward, the algorithm completes in strictly $O(N)$ time with $O(\min(N, \Sigma))$ auxiliary space."*
+
+---
+
+## 4. Benchmark Problem Deep Dive: LeetCode 76 — Minimum Window Substring
+
+### 4.1 Problem Statement Breakdown & Line-by-Line Annotations
+> *"Given two strings `s` and `t` of lengths `m` and `n` respectively, return the minimum window substring of `s` such that every character in `t` (including duplicates) is included in the window."*
+- Optimization: Minimize $(right - left + 1)$ subject to the frequency requirement $\forall c \in t: \text{window}[c] \ge \text{target\_counts}[c]$.
+- If no such substring exists, return empty string `""`.
+
+---
+
+### 4.2 Invariant & The `formed` vs. `required` Counter Technique
+
+Comparing the entire dictionary on every contraction takes $O(\Sigma)$ time. To maintain $O(1)$ updates per step:
+1. `target_counts`: Frequency dictionary of all characters in $T$.
+2. `required`: Total number of **distinct characters** in $T$ that must be satisfied.
+3. `formed`: Number of distinct characters whose frequency inside the current window matches or exceeds `target_counts`.
+- **Expansion Step**: Add `s[right]` to `window_counts`. If `window_counts[char] == target_counts[char]`, increment `formed += 1`.
+- **Contraction Step**: When `formed == required`, the window is valid:
+  - Update global minimum window bounds.
+  - Shrink window from the left by removing `s[left]`. If `window_counts[s[left]] < target_counts[s[left]]`, decrement `formed -= 1`.
+  - Increment `left += 1`.
+
+---
+
+### 4.3 Complete Python Implementation ($O(M + N)$ Optimal)
+
+```python
+from collections import Counter
+
+class SolutionMinWindow:
+    def minWindow(self, s: str, t: str) -> str:
+        if not s or not t or len(s) < len(t):
+            return ""
+            
+        target_counts = Counter(t)
+        required = len(target_counts)
+        
+        window_counts = {}
+        formed = 0
+        left = 0
+        
+        # Tuple: (window_length, start_index, end_index)
+        ans = (float('inf'), None, None)
+        
+        for right, char in enumerate(s):
+            window_counts[char] = window_counts.get(char, 0) + 1
+            
+            if char in target_counts and window_counts[char] == target_counts[char]:
+                formed += 1
+                
+            # Contract window from left while all characters are satisfied
+            while left <= right and formed == required:
+                # Update minimum window record
+                if right - left + 1 < ans[0]:
+                    ans = (right - left + 1, left, right)
+                    
+                left_char = s[left]
+                window_counts[left_char] -= 1
+                if left_char in target_counts and window_counts[left_char] < target_counts[left_char]:
+                    formed -= 1
+                    
+                left += 1
+                
+        return "" if ans[0] == float('inf') else s[ans[1]:ans[2] + 1]
+```
+
+- **Time Complexity**: $O(M + N)$ where $M = \text{len}(s)$ and $N = \text{len}(t)$. Each character in $s$ is visited at most twice (once by $right$, once by $left$).
+- **Space Complexity**: $O(\Sigma)$ where $\Sigma$ is the alphabet size (at most 52 for English letters).
+
+---
+
+### 4.4 Live Verbalization Script
+
+> *"For Minimum Window Substring, we want the shortest window in $S$ that covers all character frequencies of $T$.
+> 
+> A naive check comparing frequency dictionaries at each step would take $O(\Sigma \cdot M)$ time. 
+> 
+> To achieve $O(M + N)$ linear time, I maintain a frequency map of $T$ and two counters: `required`, representing the count of unique characters in $T$, and `formed`, representing how many unique characters currently meet their target frequencies in the sliding window.
+> 
+> I expand the `right` pointer. When `window_counts[char] == target_counts[char]`, I increment `formed`.
+> 
+> As soon as `formed == required`, the window is valid. I then contract `left` to find the tightest boundary. At each contraction, I record the smallest window length. If removing `s[left]` drops its frequency below its requirement in $T$, I decrement `formed` and break contraction.
+> 
+> Since both pointers advance monotonically, the entire search completes in $O(M + N)$ time with $O(\Sigma)$ memory."*
+

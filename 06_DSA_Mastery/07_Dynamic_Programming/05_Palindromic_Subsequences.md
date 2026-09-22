@@ -168,3 +168,88 @@ class SolutionLCS:
 > Alternatively, the problem can be solved by computing the Longest Common Subsequence between `s` and its reverse `s[::-1]`.
 > 
 > Both formulations run in $O(N^2)$ time and $O(N)$ auxiliary space."*
+
+---
+
+## 4. Benchmark Problem Deep Dive: LeetCode 132 — Palindrome Partitioning II (Minimum Cuts)
+
+### 4.1 Problem Statement Breakdown & Line-by-Line Annotations
+> *"Given a string `s`, partition `s` such that every substring of the partition is a palindrome."*
+- A partition cuts `s` into $K$ non-empty contiguous palindromic pieces using $K - 1$ cuts.
+
+> *"Return the minimum cuts needed for a palindrome partitioning of `s`."*
+- Optimization: Minimize total cut count.
+- If the entire string is a palindrome, 0 cuts are needed.
+
+---
+
+### 4.2 Two-Stage Dynamic Programming Architecture
+
+Finding the minimum cuts directly with recursion has overlapping subproblems across both substring palindromicity and prefix partitioning. We decouple this into two stages:
+
+1. **Stage 1: Precompute Palindrome Lookup Table ($O(N^2)$)**:
+   Let `is_pal[i][j]` denote whether `s[i...j]` is a palindrome.
+   $$\text{is\_pal}[i][j] = (s[i] == s[j]) \land (j - i \le 2 \lor \text{is\_pal}[i+1][j-1])$$
+
+2. **Stage 2: 1D Prefix Cut Optimization ($O(N^2)$)**:
+   Let `cuts[i]` be the minimum cuts needed for prefix `s[0...i]`:
+   - If `is_pal[0][i]` is True: No cuts required $\implies \text{cuts}[i] = 0$.
+   - Otherwise, test all split points $j \in [1 \dots i]$:
+     If `is_pal[j][i]` is True, the suffix `s[j...i]` is a palindrome, requiring 1 cut after prefix `s[0...j-1]`:
+     $$\text{cuts}[i] = \min_{1 \le j \le i, \text{is\_pal}[j][i]} (\text{cuts}[j - 1] + 1)$$
+
+---
+
+### 4.3 Complete Python Implementation ($O(N^2)$ Optimal)
+
+```python
+class SolutionPalindromePartitioningII:
+    def minCut(self, s: str) -> int:
+        n = len(s)
+        if n <= 1:
+            return 0
+            
+        # Stage 1: Precompute palindrome lookup table
+        is_pal = [[False] * n for _ in range(n)]
+        
+        # Traverse i backwards to evaluate inner substrings first
+        for i in range(n - 1, -1, -1):
+            for j in range(i, n):
+                if s[i] == s[j] and (j - i <= 2 or is_pal[i + 1][j - 1]):
+                    is_pal[i][j] = True
+                    
+        # Stage 2: 1D DP for minimum cuts of prefix s[0...i]
+        cuts = [0] * n
+        
+        for i in range(n):
+            if is_pal[0][i]:
+                cuts[i] = 0  # Entire prefix is a palindrome
+            else:
+                # Worst case: i cuts (splitting every single character)
+                min_c = i
+                for j in range(1, i + 1):
+                    if is_pal[j][i]:
+                        min_c = min(min_c, cuts[j - 1] + 1)
+                cuts[i] = min_c
+                
+        return cuts[n - 1]
+```
+
+- **Time Complexity**: $O(N^2)$ — Stage 1 takes $O(N^2)$, Stage 2 has nested loops taking $O(N^2)$.
+- **Space Complexity**: $O(N^2)$ — For the 2D boolean lookup table `is_pal`.
+
+---
+
+### 4.4 Live Verbalization Script
+
+> *"For Palindrome Partitioning II, we want the minimum cuts such that every partitioned piece is a palindrome.
+> 
+> I solve this using a two-stage dynamic programming architecture:
+> 
+> In the first stage, I precompute a 2D boolean table `is_pal[i][j]` indicating if substring `s[i...j]` is a palindrome. A substring is a palindrome if its endpoints match and the inner substring `s[i+1...j-1]` is a palindrome or has length at most 2. Filling this backwards takes $O(N^2)$ time.
+> 
+> In the second stage, I maintain a 1D DP array `cuts[i]` representing the minimum cuts needed for prefix `s[0...i]`.
+> If `is_pal[0][i]` is true, 0 cuts are needed. Otherwise, I iterate through all partition points `j` from 1 to `i`. If `is_pal[j][i]` is true, `s[j...i]` forms the last valid palindrome chunk, so the total cuts would be `cuts[j-1] + 1`. We take the minimum across all valid `j`.
+> 
+> This runs in $O(N^2)$ time and $O(N^2)$ auxiliary space."*
+

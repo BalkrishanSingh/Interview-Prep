@@ -18,10 +18,16 @@ I find the Physical Join Algorithms complicated to understand.
 ### 02 
 What exactly does partitions imply in SQL in general.
 What is deduplication again and more specifically how does ROW_NUMBER() help?
+The formula for rank seems wrong? I believe it should be Next Rank =  Number of Rows Prior + 1.
 
 
 
-
-
+## OOP
+### 01
+What is C3 Linearization Algorithm?
+What is MRO and __mro__ doing and useful for?
+What is virtual method tables?
+What is cls and @classmethod?
+### 03
 
 

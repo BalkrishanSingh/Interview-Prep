@@ -184,3 +184,73 @@ class SolutionEditDistance:
 > Because computing the current row requires only the previous row, we can space-optimize from $O(M \times N)$ to $O(\min(M, N))$ using two rolling 1D arrays.
 > 
 > The time complexity is $O(M \times N)$ and the space complexity is $O(\min(M, N))$."*
+
+---
+
+## 4. Benchmark Problem Deep Dive: LeetCode 115 — Distinct Subsequences
+
+### 4.1 Problem Statement Breakdown & Line-by-Line Annotations
+> *"Given two strings `s` and `t`, return the number of distinct subsequences of `s` which equals `t`."*
+- $S$ is the source string (length $M$), $T$ is the target pattern (length $N$).
+- We are counting the number of ways to form $T$ by deleting characters from $S$.
+
+---
+
+### 4.2 Recurrence Relation & Branching Invariants
+
+Let $\text{dp}[i][j]$ be the number of distinct subsequences of prefix $s[0 \dots i-1]$ that equal prefix $t[0 \dots j-1]$:
+1. **Characters Match** (`s[i - 1] == t[j - 1]`):
+   - We have two options:
+     - **Option A (Match)**: Use $s[i-1]$ to match $t[j-1]$. Remaining problem is matching $s[0 \dots i-2]$ with $t[0 \dots j-2]$: $\text{dp}[i-1][j-1]$.
+     - **Option B (Skip)**: Do NOT use $s[i-1]$, and look for other matches for $t[0 \dots j-1]$ earlier in $s[0 \dots i-2]$: $\text{dp}[i-1][j]$.
+     $$\text{dp}[i][j] = \text{dp}[i-1][j-1] + \text{dp}[i-1][j]$$
+2. **Characters Do Not Match** (`s[i - 1] != t[j - 1]`):
+   - We are forced to skip $s[i-1]$:
+     $$\text{dp}[i][j] = \text{dp}[i-1][j]$$
+
+**Base Cases**:
+- $\text{dp}[i][0] = 1$ for all $0 \le i \le M$: An empty target string $T$ can always be formed in exactly 1 way (by deleting all characters of $S$).
+- $\text{dp}[0][j] = 0$ for $j > 0$: A non-empty target $T$ cannot be formed from an empty source $S$.
+
+---
+
+### 4.3 Complete Python Implementation ($O(N)$ Space Optimized)
+
+```python
+class SolutionDistinctSubseq:
+    def numDistinct(self, s: str, t: str) -> int:
+        m, n = len(s), len(t)
+        
+        # dp[j] stores count of distinct subsequences of s seen so far matching t[0...j-1]
+        dp = [0] * (n + 1)
+        dp[0] = 1  # Empty target string has 1 match
+        
+        for i in range(1, m + 1):
+            # Iterate j backwards to preserve values from previous row i-1
+            for j in range(n, 0, -1):
+                if s[i - 1] == t[j - 1]:
+                    dp[j] += dp[j - 1]
+                    
+        return dp[n]
+```
+
+- **Time Complexity**: $O(M \times N)$.
+- **Space Complexity**: $O(N)$ — 1D array of length $|T| + 1$.
+
+---
+
+### 4.4 Live Verbalization Script
+
+> *"For Distinct Subsequences, we want to count how many subsequences of string $S$ match string $T$.
+> 
+> I define `dp[j]` as the number of ways prefix $S$ matches prefix $T[0...j-1]$.
+> 
+> Base case: `dp[0] = 1` because there is exactly one way to form an empty string $T$.
+> 
+> For each character in $S$:
+> I iterate through $T$ backwards from index $N$ down to 1 (mirroring the 0/1 knapsack space optimization).
+> If `s[i-1] == t[j-1]`, we have two independent choices: match the current character (adding `dp[j-1]` combinations) or skip it (retaining the existing `dp[j]` combinations from earlier in $S$). Therefore, `dp[j] += dp[j-1]`.
+> If they do not match, the character cannot be used, so `dp[j]` carries over unchanged.
+> 
+> This runs in $O(M \times N)$ time with $O(N)$ space."*
+

@@ -150,3 +150,113 @@ class Solution:
 > If the left half is not sorted, the right half is guaranteed to be sorted, and I perform the mirror check against `nums[mid]` and `nums[high]`.
 > 
 > This maintains our $O(\log n)$ invariant in a single pass without needing a separate pivot-finding step."*
+
+---
+
+## 4. Benchmark Problem 2: LeetCode 153 — Find Minimum in Rotated Sorted Array
+
+### 4.1 Problem Statement Breakdown & Line-by-Line Annotations
+> *"Given the sorted rotated array `nums` of unique elements, return the minimum element of this array."*
+- Goal: Find the inflection point (pivot) where $nums[i] < nums[i-1]$ in $O(\log N)$ time.
+
+---
+
+### 4.2 Invariant: Comparison Against `nums[high]`
+
+In rotated array search, comparing `nums[mid]` against `nums[low]` can be ambiguous when the subarray is already fully sorted. However, comparing `nums[mid]` against `nums[high]` is completely unambiguous:
+1. **If `nums[mid] > nums[high]`**:
+   The midpoint value is larger than the rightmost value. The inflection drop must reside strictly to the **right** of `mid`:
+   $$\text{low} = \text{mid} + 1$$
+2. **Else (`nums[mid] <= nums[high]`)**:
+   The subarray from `mid` to `high` is monotonically increasing. The minimum element could be `nums[mid]` itself, or lie to the **left** of `mid`:
+   $$\text{high} = \text{mid}$$
+
+Notice the loop condition `while low < high`: when the search converges to `low == high`, `nums[low]` is guaranteed to be the minimum.
+
+---
+
+### 4.3 Complete Python Implementation ($O(\log N)$ Optimal)
+
+```python
+class SolutionFindMin:
+    def findMin(self, nums: list[int]) -> int:
+        low, high = 0, len(nums) - 1
+        
+        while low < high:
+            mid = low + (high - low) // 2
+            
+            if nums[mid] > nums[high]:
+                # Inflection point is in right half
+                low = mid + 1
+            else:
+                # Inflection point is at mid or left half
+                high = mid
+                
+        return nums[low]
+```
+
+- **Time Complexity**: $O(\log N)$.
+- **Space Complexity**: $O(1)$.
+
+---
+
+## 5. Benchmark Problem 3: LeetCode 162 — Find Peak Element
+
+### 5.1 Problem Statement Breakdown & Line-by-Line Annotations
+> *"A peak element is an element that is strictly greater than its neighbors. Given a 0-indexed integer array `nums`, find a peak element, and return its index."*
+- Array is **not sorted**.
+- $nums[-1] = nums[n] = -\infty$ (virtual boundaries are $-\infty$).
+- You must write an algorithm that runs in **$O(\log N)$ time**.
+
+---
+
+### 5.2 The Slope Climbing Invariant
+
+Even though `nums` is unsorted, we can binary search by following the **monotonic slope**:
+For midpoint index `mid`:
+- Compare `nums[mid]` with `nums[mid + 1]`:
+  1. **If `nums[mid] < nums[mid + 1]` (Rising Slope)**:
+     Since the values are climbing to the right, and the right boundary eventually drops to $-\infty$ at $n$, a peak is **guaranteed to exist to the right** of `mid`:
+     $$\text{low} = \text{mid} + 1$$
+  2. **Else (`nums[mid] >= nums[mid + 1]`, Falling Slope)**:
+     Since values are descending, a peak is guaranteed to exist at `mid` or to its left:
+     $$\text{high} = \text{mid}$$
+
+---
+
+### 5.3 Complete Python Implementation ($O(\log N)$ Time)
+
+```python
+class SolutionFindPeak:
+    def findPeakElement(self, nums: list[int]) -> int:
+        low, high = 0, len(nums) - 1
+        
+        while low < high:
+            mid = low + (high - low) // 2
+            
+            if nums[mid] < nums[mid + 1]:
+                # Ascending slope: peak must lie to the right
+                low = mid + 1
+            else:
+                # Descending slope: peak must lie at mid or to the left
+                high = mid
+                
+        return low
+```
+
+- **Time Complexity**: $O(\log N)$.
+- **Space Complexity**: $O(1)$.
+
+---
+
+### 5.4 Live Verbalization Script
+
+> *"Even though the array is unsorted, we can find a peak in $O(\log N)$ time by climbing the local gradient.
+> 
+> At any midpoint `mid`, I compare `nums[mid]` with its neighbor `nums[mid + 1]`.
+> If `nums[mid] < nums[mid + 1]`, we are on an upward slope. Because the sequence must eventually terminate at negative infinity at the array boundary, a local peak is guaranteed to exist somewhere to the right, so I discard the left half by setting `low = mid + 1`.
+> 
+> Conversely, if `nums[mid] >= nums[mid + 1]`, we are on a downward slope, meaning a peak must exist at `mid` or to its left, so I set `high = mid`.
+> 
+> When `low == high`, the search terminates at a verified peak. This takes $O(\log N)$ time and $O(1)$ space."*
+

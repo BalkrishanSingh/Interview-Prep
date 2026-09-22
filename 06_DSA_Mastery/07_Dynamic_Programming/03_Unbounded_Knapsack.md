@@ -168,3 +168,60 @@ def rod_cutting(price: list[int], n: int) -> int:
 > Finally, `dp[amount]` contains the total number of combinations.
 > 
 > The time complexity is $O(N \times \text{amount})$ where $N$ is the number of coins, and the space complexity is $O(\text{amount})$."*
+
+---
+
+## 6. Benchmark Problem Deep Dive: LeetCode 377 — Combination Sum IV (Ordered Sequences)
+
+### 6.1 Problem Statement Breakdown & Line-by-Line Annotations
+> *"Given an array of distinct integers `nums` and a target integer `target`, return the number of possible combinations that add up to `target`."*
+- *Crucial note on problem nomenclature*: Despite the name "Combination Sum IV", the problem explicitly considers different orderings as **distinct sequences** (e.g., `(1, 2)` and `(2, 1)` both count). Thus, mathematically, this is counting **Permutations with Replacement**.
+
+---
+
+### 6.2 The Loop Order Invariant: Coin Change II vs. Combination Sum IV
+
+| Problem | Goal | Outer Loop | Inner Loop | Core Recurrence |
+| :--- | :--- | :--- | :--- | :--- |
+| **LC 518 (Coin Change II)** | Unordered Combinations | `for coin in coins:` | `for a in range(coin, target + 1):` | `dp[a] += dp[a - coin]` |
+| **LC 377 (Comb Sum IV)** | Ordered Permutations | `for a in range(1, target + 1):` | `for num in nums:` | `dp[a] += dp[a - num]` |
+
+**Why reversing loop order switches combinations to permutations:**
+- In LC 518, processing coin 1 completely before coin 2 ensures that 2 can never precede 1, eliminating `[2, 1]`.
+- In LC 377, for any given sum `a`, *every* candidate `num` is tested as the possible final step to reach `a`. This considers both ending in 1 after 2 (`2 + 1 = 3`) and ending in 2 after 1 (`1 + 2 = 3`), capturing all orderings.
+
+---
+
+### 6.3 Complete Python Implementation
+
+```python
+class SolutionCombSumIV:
+    def combinationSum4(self, nums: list[int], target: int) -> int:
+        # dp[a] stores count of ordered sequences that sum to a
+        dp = [0] * (target + 1)
+        dp[0] = 1  # Base case: 1 way to form sum 0 (empty sequence)
+        
+        # Outer loop over amounts: every coin can be the last step to form amount a
+        for a in range(1, target + 1):
+            for num in nums:
+                if a - num >= 0:
+                    dp[a] += dp[a - num]
+                    
+        return dp[target]
+```
+
+- **Time Complexity**: $O(\text{target} \times |\text{nums}|)$.
+- **Space Complexity**: $O(\text{target})$.
+
+---
+
+### 6.4 Live Verbalization Script
+
+> *"Although LeetCode 377 is titled 'Combination Sum IV', the problem states that different orderings are counted as distinct, making it an ordered permutation counting problem.
+> 
+> In contrast to Coin Change II (where coins are iterated in the outer loop to enforce a canonical non-decreasing order), here I iterate over the target sum `a` in the outer loop, and iterate over all numbers in the inner loop.
+> 
+> For each sum `a` from 1 to `target`, any number `num <= a` can serve as the final element in a sequence summing to `a`. Therefore, `dp[a]` equals the sum of `dp[a - num]` across all valid numbers.
+> 
+> With `dp[0] = 1`, this computes all permutations in $O(\text{target} \times |\text{nums}|)$ time with $O(\text{target})$ space."*
+
