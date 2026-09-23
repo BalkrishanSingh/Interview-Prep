@@ -46,7 +46,7 @@ Vector Dimensions: [ d_1,  d_2,  d_3, ... d_1536 ]
 | :--- | :--- | :--- |
 | **Cosine Similarity** | $\cos(\theta) = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\| \|\mathbf{v}\|}$ | Evaluates only the **angular direction** between vectors, completely ignoring magnitude. Bounds: $[-1, 1]$. |
 | **Dot Product** | $\mathbf{u} \cdot \mathbf{v} = \sum_{i=1}^d u_i v_i$ | Sensitive to both angle and vector magnitude. If vectors are normalized to unit length ($\|\mathbf{u}\| = 1$), Dot Product equals Cosine Similarity. |
-| **Euclidean Distance ($L_2$)** | $\|\mathbf{u} - \mathbf{v}\|_2 = \sqrt{\sum_{i=1}^d (u_i - v_i)^2}$ | Geometric Euclidean distance between two points in $d$-dimensional space. |
+| **Euclidean Distance** ($L_2$) | $d(\mathbf{u}, \mathbf{v}) = \sqrt{\sum_{i=1}^d (u_i - v_i)^2}$ | Geometric Euclidean distance between two points in $d$-dimensional space. |
 
 ---
 
@@ -84,7 +84,7 @@ Combines semantic understanding with exact keyword search:
 1. **Dense Retrieval**: Embedding-based vector search (captures semantic intent and synonyms).
 2. **Sparse Retrieval (BM25 / TF-IDF)**: Lexical keyword search (matches specific product IDs, part numbers, and acronyms that embeddings overlook).
 3. **Reciprocal Rank Fusion (RRF)**: Merges both ranked result lists into a single consolidated score:
-   $$\text{Score}_{\text{RRF}}(d) = \sum_{m \in \{\text{Dense}, \text{Sparse}\}} \frac{1}{k + \text{rank}_m(d)}$$
+   $$S_{\text{RRF}}(d) = \sum_{m \in \{\text{Dense}, \text{Sparse}\}} \frac{1}{k + r_m(d)}$$
 
 ### 4.2 Re-Ranking with Cross-Encoders
 Bi-encoder embedding models compute query and document representations separately for fast vector search. However, a **Cross-Encoder Re-Ranker** processes the query and candidate chunk jointly through full cross-attention layers, outputting an accurate relevance score to select the top 3-5 most pertinent chunks.

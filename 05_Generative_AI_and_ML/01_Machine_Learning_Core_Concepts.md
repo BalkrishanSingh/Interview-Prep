@@ -59,7 +59,7 @@ Error
 
 Regularization adds a penalty parameter to the loss function to constrain model weights $w$:
 
-$$\mathcal{L}_{\text{reg}}(w) = \mathcal{L}_{\text{data}}(w) + \lambda \cdot \Omega(w)$$
+$$L_{\text{reg}}(w) = L_{\text{data}}(w) + \lambda \cdot \Omega(w)$$
 
 | Feature | $L_1$ Regularization (Lasso) | $L_2$ Regularization (Ridge) |
 | :--- | :--- | :--- |

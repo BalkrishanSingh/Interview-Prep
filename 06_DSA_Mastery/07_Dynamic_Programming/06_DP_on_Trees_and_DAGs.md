@@ -46,14 +46,13 @@ $$\text{dfs}(\text{node}) \to (\text{state}_1, \text{state}_2, \dots)$$
 
 ### 2.3 State Tuple Definition & Recurrence
 
-For every node `u`, define the state tuple:
-$$(\text{with}_{\text{root}}, \text{without}_{\text{root}})$$
+For every node `u`, define the state tuple: `(with_root, without_root)`
 1. **`with_root`**: The maximum money obtainable from the subtree rooted at `u` **including** `u`.
    - If `u` is robbed, neither `left` nor `right` can be robbed:
-     $$\text{with}_{\text{root}} = u.\text{val} + \text{without}_{\text{left}} + \text{without}_{\text{right}}$$
+     `with_root = u.val + without_left + without_right`
 2. **`without_root`**: The maximum money obtainable from the subtree rooted at `u` **excluding** `u`.
    - If `u` is skipped, its children may either be robbed or skipped (we choose the maximum independently for each child):
-     $$\text{without}_{\text{root}} = \max(\text{with}_{\text{left}}, \text{without}_{\text{left}}) + \max(\text{with}_{\text{right}}, \text{without}_{\text{right}})$$
+     `without_root = max(with_left, without_left) + max(with_right, without_right)`
 
 **Base Case**:
 - If `node is None`: return `(0, 0)`.
